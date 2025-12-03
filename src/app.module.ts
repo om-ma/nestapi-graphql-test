@@ -35,4 +35,4 @@ import { Employee } from './modules/employees/entities/employee.entity';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
