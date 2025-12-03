@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+input CreateEmployeeInput {
+  age: Int!
+  attendance: [Boolean!]
+  class: String!
+  name: String!
+  subjects: [String!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Employee {
+  age: Float!
+  attendance: [Boolean!]!
+  class: String!
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  subjects: [String!]!
+  updatedAt: DateTime!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
+  login(loginInput: LoginInput!): AuthResponse!
+  markAttendance(id: ID!, present: Boolean!): Employee!
+  register(registerInput: RegisterInput!): AuthResponse!
+  removeEmployee(id: ID!): Boolean!
+  updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
+}
+
+type Query {
+  employee(id: ID!): Employee!
+  employees: [Employee!]!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  roles: [UserRole!]! = [USER]
+  username: String!
+}
+
+input UpdateEmployeeInput {
+  age: Int
+  attendance: [Boolean!]
+  class: String
+  id: String!
+  name: String
+  subjects: [String!]
+}
+
+type User {
+  createdAt: DateTime!
+  email: String!
+  id: String!
+  roles: [UserRole!]!
+  updatedAt: DateTime!
+  username: String!
+}
+
+"""Available user roles"""
+enum UserRole {
+  ADMIN
+  AUTHOR
+  USER
+}
