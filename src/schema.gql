@@ -31,6 +31,23 @@ type Employee {
   updatedAt: DateTime!
 }
 
+input EmployeeFiltersInput {
+  age: Int
+  class: String
+  name: String
+  subjects: [String!]
+}
+
+type EmployeePaginatedResponse {
+  employees: [Employee!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  limit: Int!
+  page: Int!
+  total: Int!
+  totalPages: Int!
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -45,9 +62,17 @@ type Mutation {
   updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
 }
 
+input PaginationInput {
+  limit: Int = 10
+  page: Int = 1
+  sortBy: String = "createdAt"
+  sortOrder: String = "DESC"
+}
+
 type Query {
   employee(id: ID!): Employee!
-  employees: [Employee!]!
+  employees(filters: EmployeeFiltersInput): [Employee!]!
+  employeesPaginated(filters: EmployeeFiltersInput, pagination: PaginationInput!): EmployeePaginatedResponse!
 }
 
 input RegisterInput {

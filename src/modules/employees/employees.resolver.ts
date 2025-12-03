@@ -4,6 +4,9 @@ import { Employee } from './entities/employee.entity';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeInput } from './dto/create-employee.input';
 import { UpdateEmployeeInput } from './dto/update-employee.input';
+import { EmployeeFiltersInput } from './dto/employee-filters.input';
+import { PaginationInput } from './dto/pagination.input';
+import { EmployeePaginatedResponse } from './dto/employee-paginated-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -22,14 +25,23 @@ export class EmployeesResolver {
 
   @Query(() => [Employee], { name: 'employees' })
   @Roles(UserRole.ADMIN, UserRole.USER)
-  findAll() {
-    return this.employeesService.findAll();
+  findAll(@Args('filters', { nullable: true }) filters?: EmployeeFiltersInput) {
+    return this.employeesService.findAll(filters);
   }
 
   @Query(() => Employee, { name: 'employee' })
   @Roles(UserRole.ADMIN, UserRole.USER)
   findOne(@Args('id', { type: () => ID }) id: string) {
     return this.employeesService.findOne(id);
+  }
+
+  @Query(() => EmployeePaginatedResponse, { name: 'employeesPaginated' })
+  @Roles(UserRole.ADMIN, UserRole.USER)
+  findWithPagination(
+    @Args('pagination') pagination: PaginationInput,
+    @Args('filters', { nullable: true }) filters?: EmployeeFiltersInput
+  ) {
+    return this.employeesService.findWithPagination(pagination, filters);
   }
 
   @Mutation(() => Employee)
