@@ -13,7 +13,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from '../users/enums/role.enum';
 
 @Resolver(() => Employee)
-// @UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class EmployeesResolver {
   constructor(private readonly employeesService: EmployeesService) {}
 
