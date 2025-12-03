@@ -15,7 +15,6 @@ export class AuthResolver {
 
   @Mutation(() => AuthResponse)
   async register(@Args('registerInput') registerInput: RegisterInput): Promise<AuthResponse> {
-    const user = await this.authService.register(registerInput);
     return this.authService.register(registerInput);
   }
 }
