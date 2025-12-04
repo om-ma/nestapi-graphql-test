@@ -51,7 +51,7 @@ export class EmployeesResolver {
   }
 
   @Mutation(() => Boolean)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.USER)
   async removeEmployee(@Args('id', { type: () => ID }) id: string) {
     return this.employeesService.remove(id);
   }
