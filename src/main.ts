@@ -6,7 +6,7 @@ async function bootstrap() {
   
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://18.139.37.51:3000'],
+    origin: ['http://localhost:3000', 'http://18.139.37.51:3000', 'http://react-test-app-omair.s3-website.ap-south-1.amazonaws.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
