@@ -18,7 +18,7 @@ export class EmployeesResolver {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Mutation(() => Employee)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.USER)
   createEmployee(@Args('createEmployeeInput') createEmployeeInput: CreateEmployeeInput) {
     return this.employeesService.create(createEmployeeInput);
   }
